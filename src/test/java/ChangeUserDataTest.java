@@ -9,6 +9,13 @@ import org.junit.Test;
 
 import static org.hamcrest.Matchers.equalTo;
 
+/*
+Изменение данных пользователя:
+- с авторизацией,
+- без авторизации,
+Для обеих ситуаций нужно проверить, что любое поле можно изменить.
+Для неавторизованного пользователя — ещё и то, что система вернёт ошибку.
+ */
 public class ChangeUserDataTest {
 
     private final UserSteps userSteps = new UserSteps();

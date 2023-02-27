@@ -7,6 +7,14 @@ import org.junit.Test;
 
 import static org.hamcrest.Matchers.equalTo;
 
+/*
+Создание заказа:
+- с авторизацией,
+- без авторизации,
+- с ингредиентами,
+- без ингредиентов,
+- с неверным хешем ингредиентов.
+ */
 public class OrderCreationTest {
     private final UserSteps userSteps = new UserSteps();
     private final OrderSteps orderSteps = new OrderSteps();

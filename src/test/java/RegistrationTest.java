@@ -8,6 +8,12 @@ import org.junit.Test;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
+/*
+Создание пользователя:
+создать уникального пользователя;
+создать пользователя, который уже зарегистрирован;
+создать пользователя и не заполнить одно из обязательных полей.
+*/
 public class RegistrationTest {
     private final UserSteps userSteps = new UserSteps();
     private Response response;
@@ -92,5 +98,4 @@ public class RegistrationTest {
                 .and()
                 .statusCode(403);
     }
-
 }

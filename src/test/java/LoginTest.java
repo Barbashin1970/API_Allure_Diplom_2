@@ -9,6 +9,11 @@ import org.junit.Test;
 
 import static org.hamcrest.Matchers.equalTo;
 
+/*
+Логин пользователя:
+логин под существующим пользователем,
+логин с неверным логином и паролем.
+ */
 
 public class LoginTest {
     private final UserSteps userSteps = new UserSteps();

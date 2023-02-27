@@ -8,6 +8,11 @@ import org.junit.Test;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
+/*
+Получение заказов конкретного пользователя:
+- авторизованный пользователь,
+- неавторизованный пользователь.
+ */
 public class OrdersFromUserTest {
     private final UserSteps userSteps = new UserSteps();
     private final OrderSteps orderSteps = new OrderSteps();
@@ -37,7 +42,7 @@ public class OrdersFromUserTest {
     @Severity(SeverityLevel.NORMAL)
     @DisplayName("Получаем список заказов неавторизованного пользователя")
     @Description("Создаём заказ без авторизации и должны получить код 401 и сообщение о необходимости авторизации")
-    public void getOrdersWithUnauthorizedShouldBeError() {
+    public void getOrdersWithUnauthorizedGiveError() {
         order = Order.getOrderCorrect();
         response = orderSteps.createOrder(order, "token1234");
         response = orderSteps.getUserOrders("token1234");
