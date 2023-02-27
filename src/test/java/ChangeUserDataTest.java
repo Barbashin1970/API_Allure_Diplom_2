@@ -40,7 +40,7 @@ public class ChangeUserDataTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @DisplayName("Изменить пароль без авторизации нельзя")
-    @Description("Негативная проверка")
+    @Description("Негативная проверка - ожидаем 401")
     public void updatePasswordShouldBeError() {
         password = user.getPassword();
         user.setPassword(password + "password");
@@ -55,7 +55,7 @@ public class ChangeUserDataTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @DisplayName("Поменять имя и e-mail после авторизации возможно")
-    @Description("Позитивная проверка")
+    @Description("Позитивная проверка - ожидаем 200")
     public void shouldUpdateEmailAndName() {
         email = user.getEmail();
         name = user.getName();
@@ -73,7 +73,7 @@ public class ChangeUserDataTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @DisplayName("Поменять имя и e-mail без авторизации нельзя")
-    @Description("Негативная проверка")
+    @Description("Негативная проверка - ожидаем 401")
     public void updateEmailAndNameShouldBeError() {
         email = user.getEmail();
         name = user.getName();
@@ -91,7 +91,7 @@ public class ChangeUserDataTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @DisplayName("Поменять пароль после авторизации возможно")
-    @Description("Позитивная проверка")
+    @Description("Позитивная проверка - ожидаем 200")
     public void shouldUpdatePassword() {
         password = user.getPassword();
         user.setPassword(password + "password");

@@ -30,7 +30,7 @@ public class UserSteps {
                 .body(newUser).patch(Configuration.USER);
     }
 
-    @Step("Авторизация по параметру - пользователь без токена")
+    @Step("Авторизация по одному параметру - пользователь")
     public Response loginUser(User user) {
         return given()
                 .contentType(ContentType.JSON)
@@ -38,7 +38,7 @@ public class UserSteps {
                 .body(user).post(Configuration.LOGIN);
     }
 
-    @Step("Авторизация по параметрам - пользователь и токен")
+    @Step("Авторизация по двум параметрам - пользователь и токен")
     public Response loginUser(User user, String token) {
         return given()
                 .contentType(ContentType.JSON)
@@ -46,5 +46,5 @@ public class UserSteps {
                 .baseUri(Configuration.URL)
                 .body(user).post(Configuration.LOGIN);
     }
-    
+
 }

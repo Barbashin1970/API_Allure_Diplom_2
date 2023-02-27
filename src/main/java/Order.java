@@ -7,7 +7,7 @@ public class Order {
         this.ingredients = ingredients;
     }
 
-    public static Order getOrderWrongHash() {
+    public static Order getOrderNotCorrect() {
         return new Order(List.of("1234", "2345"));
     }
 
@@ -18,6 +18,20 @@ public class Order {
     public static Order getOrderCorrect() {
         return new Order(List.of("61c0c5a71d1f82001bdaaa6d", "61c0c5a71d1f82001bdaaa6f"));
     }
+
+    /* - проверка - ингредиенты соответствуют ответу сервера -
+         "success": true,
+         "name": "Бессмертный флюоресцентный бургер",
+         "order": { "number": 2870 }
+     */
+    public static Order getOrderMarsBurger() {
+        return new Order(List.of("61c0c5a71d1f82001bdaaa71", "61c0c5a71d1f82001bdaaa6e"));
+    }
+        /*
+              "success": true,
+              "name": "Люминесцентный био-марсианский бургер",
+              "order": { "number": 3384 }
+         */
 
     public List<String> getIngredients() {
         return ingredients;

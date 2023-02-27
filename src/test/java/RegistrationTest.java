@@ -37,7 +37,7 @@ public class RegistrationTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @DisplayName("Создание двух одинаковых профилей пользователя невозможно")
-    @Description("Проверяем что текст ошибки содержит информацию о существовании такого профиля")
+    @Description("Проверяем что ответ 403 и текст ошибки содержит информацию о существовании такого профиля")
     public void existRegistrationTest() {
         user = User.getExistUser();
         response = userSteps.createUser(user);
@@ -50,7 +50,7 @@ public class RegistrationTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @DisplayName("Проверяем обязательность поля пароль при регистрации")
-    @Description("Проверяем что без пароля вернется текст ошибки - что поле обязательное")
+    @Description("Проверяем что ответ 403 и без пароля вернется текст ошибки - что поле обязательное")
     public void registrationWithEmptyPasswordTest() {
         user = User.createUserWithEmptyPassword();
         response = userSteps.createUser(user);
