@@ -105,6 +105,10 @@ public class ChangeUserDataTest {
 
     @After
     public void teardown() {
-        userSteps.deleteUser(token);
+        if (token != null) {
+            userSteps.deleteUser(token);
+        } else {
+            throw new RuntimeException("Проверьте - Ваша ручка POST создание аккаунта, возможно, создала токен  == null");
+        }
     }
 }

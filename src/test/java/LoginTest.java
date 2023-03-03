@@ -3,6 +3,7 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
+import org.junit.After;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -28,7 +29,6 @@ public class LoginTest {
         response = userSteps.createUser(user);
         token = response.then().extract().body().path("accessToken");
         response = userSteps.loginUser(user, token);
-        userSteps.deleteUser(token);
         response.then()
                 .body("success", equalTo(true))
                 .and()
@@ -63,11 +63,17 @@ public class LoginTest {
         response = userSteps.loginUser(user, token);
         user.setEmail(email);
         user.setPassword(password);
-        userSteps.deleteUser(token);
         response.then()
                 .body("success", equalTo(false))
                 .and()
                 .statusCode(401);
 
+    }
+
+    @After
+    public void teardown() {
+        if (token != null) {
+            userSteps.deleteUser(token);
+        }
     }
 }

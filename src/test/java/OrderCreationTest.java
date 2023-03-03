@@ -3,6 +3,7 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
+import org.junit.After;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -19,6 +20,7 @@ import static org.hamcrest.Matchers.notNullValue;
 public class OrderCreationTest {
     private final UserSteps userSteps = new UserSteps();
     private final OrderSteps orderSteps = new OrderSteps();
+    private String token;
 
     private Response response;
 
@@ -29,9 +31,8 @@ public class OrderCreationTest {
     public void createOrderWithAuth() {
         User user = User.createRandomUser();
         response = userSteps.createUser(user);
-        String token = response.then().extract().body().path("accessToken");
+        token = response.then().extract().body().path("accessToken");
         response = orderSteps.createOrder(Order.getOrderCorrect(), token);
-        userSteps.deleteUser(token);
         response.then()
                 .body("success", equalTo(true))
                 .and()
@@ -109,5 +110,12 @@ public class OrderCreationTest {
                 .body("success", equalTo(true))
                 .and()
                 .statusCode(200);
+    }
+
+    @After
+    public void teardown() {
+        if (token != null) {
+            userSteps.deleteUser(token);
+        }
     }
 }

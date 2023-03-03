@@ -3,6 +3,7 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
+import org.junit.After;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -18,6 +19,7 @@ public class RegistrationTest {
     private final UserSteps userSteps = new UserSteps();
     private Response response;
     private User user;
+    private String token;
 
     @Test
     @Severity(SeverityLevel.NORMAL)
@@ -26,8 +28,7 @@ public class RegistrationTest {
     public void successRegistrationTest() {
         user = User.createRandomUser();
         response = userSteps.createUser(user);
-        String token = response.then().extract().body().path("accessToken");
-        userSteps.deleteUser(token);
+        token = response.then().extract().body().path("accessToken");
         response.then()
                 .body("accessToken", notNullValue())
                 .and()
@@ -54,6 +55,7 @@ public class RegistrationTest {
     public void registrationWithEmptyPasswordTest() {
         user = User.createUserWithEmptyPassword();
         response = userSteps.createUser(user);
+        token = response.then().extract().body().path("accessToken");
         response.then()
                 .body("message", equalTo("Email, password and name are required fields"))
                 .and()
@@ -67,6 +69,7 @@ public class RegistrationTest {
     public void registrationWithEmptyEmailTest() {
         user = User.createUserWithEmptyEmail();
         response = userSteps.createUser(user);
+        token = response.then().extract().body().path("accessToken");
         response.then()
                 .body("message", equalTo("Email, password and name are required fields"))
                 .and()
@@ -80,6 +83,7 @@ public class RegistrationTest {
     public void registrationWithEmptyNameTest() {
         user = User.createUserWithEmptyName();
         response = userSteps.createUser(user);
+        token = response.then().extract().body().path("accessToken");
         response.then()
                 .body("message", equalTo("Email, password and name are required fields"))
                 .and()
@@ -93,9 +97,17 @@ public class RegistrationTest {
     public void registrationWithEmptyUserTest() {
         user = User.createEmptyUser();
         response = userSteps.createUser(user);
+        token = response.then().extract().body().path("accessToken");
         response.then()
                 .body("message", equalTo("Email, password and name are required fields"))
                 .and()
                 .statusCode(403);
+    }
+
+    @After
+    public void teardown() {
+        if (token != null) {
+            userSteps.deleteUser(token);
+        }
     }
 }
